@@ -1,0 +1,17 @@
+# Local-only brainstorm/spec/plan artifacts — not part of the public repo
+.superpowers/
+docs/
+
+# Local preview files
+preview.html
+preview-readme.html
+
+# Node (in case dev tooling is added later)
+node_modules/
+.pnpm-store/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
