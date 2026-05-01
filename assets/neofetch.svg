@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 130" width="360" height="130" font-family="monospace" font-size="11">
+  <text x="0" y="14" fill="#3fb950" font-weight="bold">tan<tspan fill="#8b949e" font-weight="normal">@</tspan>lab</text>
+  <text x="0" y="28" fill="#30363d">─────────────</text>
+
+  <g>
+    <text x="0" y="48" opacity="0">
+      <tspan fill="#58a6ff" font-weight="bold">OS      </tspan>
+      <tspan fill="#c9d1d9">Windows · Docker Desktop</tspan>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="0.2s" fill="freeze"/>
+    </text>
+    <text x="0" y="62" opacity="0">
+      <tspan fill="#58a6ff" font-weight="bold">Host    </tspan>
+      <tspan fill="#c9d1d9">Mini-ITX · 32GB · NVMe</tspan>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="0.5s" fill="freeze"/>
+    </text>
+    <text x="0" y="76" opacity="0">
+      <tspan fill="#58a6ff" font-weight="bold">Uptime  </tspan>
+      <tspan fill="#c9d1d9">self-hosting since 2024</tspan>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="0.8s" fill="freeze"/>
+    </text>
+    <text x="0" y="90" opacity="0">
+      <tspan fill="#58a6ff" font-weight="bold">Stack   </tspan>
+      <tspan fill="#c9d1d9">TypeScript · pnpm · Postgres · Docker</tspan>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.1s" fill="freeze"/>
+    </text>
+    <text x="0" y="104" opacity="0">
+      <tspan fill="#58a6ff" font-weight="bold">Network </tspan>
+      <tspan fill="#c9d1d9">Tailscale to everything</tspan>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.4s" fill="freeze"/>
+    </text>
+    <text x="0" y="118" opacity="0">
+      <tspan fill="#58a6ff" font-weight="bold">Locale  </tspan>
+      <tspan fill="#c9d1d9">Manila, PH</tspan>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.7s" fill="freeze"/>
+    </text>
+  </g>
+</svg>
