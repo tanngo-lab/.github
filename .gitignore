@@ -4,7 +4,7 @@ docs/
 
 # Local preview files
 preview.html
-preview-readme.html
+preview-*.html
 
 # Node (in case dev tooling is added later)
 node_modules/
