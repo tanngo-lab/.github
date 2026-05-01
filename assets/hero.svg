@@ -1,0 +1,491 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+  <style>
+    /* === Palette (light default; dark via media query) === */
+    .cosmos {
+      color: #1f2328;
+      --neb-a: #fbbf24;
+      --neb-b: #22d3ee;
+      --neb-c: #a78bfa;
+      --jet: #0891b2;
+      --saturn-shadow: #1f2328;
+      --saturn-shadow-opacity: 0.18;
+      --nova-shock-2: currentColor;
+      --neb-opacity: 0.10;
+      --mw-opacity: 0.06;
+    }
+    @media (prefers-color-scheme: dark) {
+      .cosmos {
+        color: #f0f6fc;
+        --neb-a: #c084fc;
+        --neb-b: #22d3ee;
+        --neb-c: #f472b6;
+        --jet: #22d3ee;
+        --saturn-shadow: #0d1117;
+        --saturn-shadow-opacity: 0.4;
+        --nova-shock-2: #fde68a;
+        --neb-opacity: 0.22;
+        --mw-opacity: 0.10;
+      }
+    }
+
+    /* === Element classes === */
+    .cosmos .star, .cosmos .body, .cosmos .glint { fill: currentColor; }
+    .cosmos .ring { stroke: currentColor; fill: none; }
+    .cosmos .neb-a { fill: var(--neb-a); }
+    .cosmos .neb-b { fill: var(--neb-b); }
+    .cosmos .neb-c { fill: var(--neb-c); }
+    .cosmos .nova-flash { fill: currentColor; }
+    .cosmos .nova-shock { stroke: currentColor; fill: none; }
+    .cosmos .nova-shock-2 { stroke: var(--nova-shock-2); fill: none; }
+    .cosmos .nova-glow { fill: url(#novaGlow-light); }
+    @media (prefers-color-scheme: dark) { .cosmos .nova-glow { fill: url(#novaGlow-dark); } }
+    .cosmos .jet-ignite { fill: url(#jetIgnite-light); }
+    @media (prefers-color-scheme: dark) { .cosmos .jet-ignite { fill: url(#jetIgnite-dark); } }
+    .cosmos .jet-top { fill: url(#jetTop-light); }
+    @media (prefers-color-scheme: dark) { .cosmos .jet-top { fill: url(#jetTop-dark); } }
+    .cosmos .jet-bot { fill: url(#jetBot-light); }
+    @media (prefers-color-scheme: dark) { .cosmos .jet-bot { fill: url(#jetBot-dark); } }
+    .cosmos .jet-shock { stroke: var(--jet); fill: none; }
+    .cosmos .saturn-shadow { fill: var(--saturn-shadow); opacity: var(--saturn-shadow-opacity); }
+    .cosmos .nebulae-group { opacity: var(--neb-opacity); }
+    .cosmos .milky-way { opacity: var(--mw-opacity); }
+    .cosmos .grain-overlay { filter: url(#grain-light); opacity: 0.6; }
+    @media (prefers-color-scheme: dark) { .cosmos .grain-overlay { filter: url(#grain-dark); opacity: 0.7; } }
+
+    /* === Keyframes === */
+    @keyframes tw1 { 0%,100% { opacity: .25; } 50% { opacity: .95; } }
+    @keyframes tw2 { 0%,100% { opacity: .15; } 50% { opacity: .85; } }
+    @keyframes tw3 { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+    @keyframes glintP { 0%,100% { opacity: .35; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
+    @keyframes breathe { 0%,100% { r: 36; opacity: .8; } 50% { r: 52; opacity: .55; } }
+    @keyframes breatheInner { 0%,100% { r: 14; opacity: .8; } 50% { r: 19; opacity: 1; } }
+    @keyframes raysPulse { 0%,100% { opacity: .1; } 50% { opacity: .32; } }
+    @keyframes raysSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes pulsarRing { 0% { r: 0; opacity: .85; } 100% { r: 36; opacity: 0; } }
+    @keyframes con1 { 0%,5% { stroke-opacity: 0; } 12%,28% { stroke-opacity: .35; } 35%,100% { stroke-opacity: 0; } }
+    @keyframes con2 { 0%,38% { stroke-opacity: 0; } 45%,60% { stroke-opacity: .35; } 67%,100% { stroke-opacity: 0; } }
+    @keyframes con3 { 0%,70% { stroke-opacity: 0; } 77%,92% { stroke-opacity: .35; } 99%,100% { stroke-opacity: 0; } }
+    @keyframes shootA { 0%,88% { opacity: 0; } 92%,99% { opacity: .9; } 100% { opacity: 0; } }
+    @keyframes shootB { 0%,60% { opacity: 0; } 64%,71% { opacity: .85; } 73%,100% { opacity: 0; } }
+    @keyframes shootC { 0%,30% { opacity: 0; } 34%,41% { opacity: .8; } 43%,100% { opacity: 0; } }
+    @keyframes novaStar { 0%,90% { r: 1.3; opacity: .5; } 93% { r: 4; opacity: 1; } 94% { r: 7; opacity: 1; } 95% { r: 5; opacity: 1; } 97% { r: 2; opacity: .7; } 100% { r: 1; opacity: .4; } }
+    @keyframes novaShock { 0%,92% { r: 0; opacity: 0; stroke-width: 1.5; } 93% { r: 4; opacity: .95; stroke-width: 1.5; } 98% { r: 65; opacity: 0; stroke-width: .4; } 100% { r: 0; opacity: 0; } }
+    @keyframes novaShock2 { 0%,93% { r: 0; opacity: 0; stroke-width: 1; } 94% { r: 3; opacity: .7; } 99% { r: 80; opacity: 0; stroke-width: .3; } 100% { r: 0; opacity: 0; } }
+    @keyframes novaFlash { 0%,92% { opacity: 0; } 93% { opacity: .1; } 95% { opacity: .06; } 98%,100% { opacity: 0; } }
+    @keyframes novaGlow { 0%,92% { opacity: 0; r: 0; } 93% { opacity: .55; r: 18; } 96% { opacity: .2; r: 30; } 100% { opacity: 0; r: 40; } }
+    @keyframes jetFire { 0%,76% { opacity: 0; } 78% { opacity: 0; } 80% { opacity: 1; } 83% { opacity: .9; } 85% { opacity: .4; } 86%,100% { opacity: 0; } }
+    @keyframes jetGrow { 0%,77% { transform: scaleY(0); } 79% { transform: scaleY(.4); } 81% { transform: scaleY(1); } 85% { transform: scaleY(1); } 86%,100% { transform: scaleY(0); } }
+    @keyframes jetIgnite { 0%,78% { r: 0; opacity: 0; } 80% { r: 18; opacity: .85; } 82% { r: 30; opacity: .4; } 84% { r: 42; opacity: .12; } 86%,100% { r: 0; opacity: 0; } }
+    @keyframes jetShock { 0%,78% { r: 0; opacity: 0; stroke-width: 1; } 80% { r: 4; opacity: .7; } 86% { r: 70; opacity: 0; stroke-width: .3; } 100% { r: 0; opacity: 0; } }
+
+    /* === Animation classes === */
+    .cosmos .tw-1 { animation: tw1 3.4s ease-in-out infinite; }
+    .cosmos .tw-2 { animation: tw2 4.7s ease-in-out infinite; animation-delay: -1.2s; }
+    .cosmos .tw-3 { animation: tw3 2.8s ease-in-out infinite; animation-delay: -.6s; }
+    .cosmos .tw-4 { animation: tw1 5.1s ease-in-out infinite; animation-delay: -2.4s; }
+    .cosmos .tw-5 { animation: tw2 3.9s ease-in-out infinite; animation-delay: -1.8s; }
+    .cosmos .glint-pulse { animation: glintP 4.2s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .cosmos .gp-2 { animation-delay: -1.4s; }
+    .cosmos .gp-3 { animation-delay: -2.6s; }
+    .cosmos .gp-4 { animation-delay: -.8s; }
+    .cosmos .core-outer { animation: breathe 7s ease-in-out infinite; }
+    .cosmos .core-inner { animation: breatheInner 4s ease-in-out infinite; }
+    .cosmos .rays-group { transform-origin: 400px 200px; animation: raysSpin 90s linear infinite; }
+    .cosmos .rays-pulse { animation: raysPulse 8s ease-in-out infinite; }
+    .cosmos .pulsar-1 { animation: pulsarRing 4.2s ease-out infinite; }
+    .cosmos .pulsar-2 { animation: pulsarRing 4.2s ease-out infinite; animation-delay: -1.8s; }
+    .cosmos .con-1 { animation: con1 30s ease-in-out infinite; }
+    .cosmos .con-2 { animation: con2 30s ease-in-out infinite; }
+    .cosmos .con-3 { animation: con3 30s ease-in-out infinite; }
+    .cosmos .shoot-a { animation: shootA 18s linear infinite; }
+    .cosmos .shoot-b { animation: shootB 22s linear infinite; }
+    .cosmos .shoot-c { animation: shootC 26s linear infinite; }
+    .cosmos .nova-star { animation: novaStar 60s ease-in-out infinite; }
+    .cosmos .nova-shock { animation: novaShock 60s linear infinite; }
+    .cosmos .nova-shock-2 { animation: novaShock2 60s linear infinite; }
+    .cosmos .nova-flash { animation: novaFlash 60s linear infinite; }
+    .cosmos .nova-glow { animation: novaGlow 60s ease-out infinite; }
+    .cosmos .jet-top { animation: jetFire 80s linear infinite, jetGrow 80s linear infinite; transform-origin: 50% 100%; transform-box: fill-box; }
+    .cosmos .jet-bot { animation: jetFire 80s linear infinite, jetGrow 80s linear infinite; transform-origin: 50% 0%; transform-box: fill-box; }
+    .cosmos .jet-ignite { animation: jetIgnite 80s linear infinite; }
+    .cosmos .jet-shock { animation: jetShock 80s linear infinite; }
+  </style>
+
+  <defs>
+    <!-- Mode-agnostic gradients (currentColor adapts to active palette) -->
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="currentColor" stop-opacity="0.7"/>
+      <stop offset="55%" stop-color="currentColor" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="coreInner" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="currentColor" stop-opacity="1"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="galaxy" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="currentColor" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shootA" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%"   stop-color="currentColor" stop-opacity="0"/>
+      <stop offset="80%"  stop-color="currentColor" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="shootB" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%"   stop-color="currentColor" stop-opacity="0"/>
+      <stop offset="85%"  stop-color="currentColor" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0.92"/>
+    </linearGradient>
+
+    <!-- Mode-specific gradients (light + dark pairs; CSS chooses which is referenced) -->
+    <radialGradient id="novaGlow-light" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#f59e0b" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="novaGlow-dark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#fde68a" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#fb923c" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#fb923c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="jetIgnite-light" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#0891b2" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#0891b2" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="jetIgnite-dark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"  stop-color="#a5f3fc" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#22d3ee" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="jetTop-light" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%"  stop-color="#0891b2" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#0891b2" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="jetTop-dark" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%"  stop-color="#a5f3fc" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#22d3ee" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="jetBot-light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0891b2" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#0891b2" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="jetBot-dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#a5f3fc" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#22d3ee" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="neb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="42"/></filter>
+    <filter id="mw"  x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="galaxyBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.2"/></filter>
+    <filter id="grain-light" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+    <filter id="grain-dark" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0"/>
+    </filter>
+  </defs>
+
+  <g class="cosmos">
+    <!-- Nova flash overlay (full canvas tint when supernova fires) -->
+    <rect class="nova-flash" x="0" y="0" width="800" height="400" opacity="0"/>
+
+    <!-- Milky Way band -->
+    <g class="milky-way" filter="url(#mw)">
+      <ellipse cx="400" cy="200" rx="520" ry="45" fill="currentColor" transform="rotate(-12 400 200)"/>
+    </g>
+
+    <!-- Nebulae -->
+    <g class="nebulae-group" filter="url(#neb)">
+      <ellipse class="neb-a" cx="200" cy="120" rx="190" ry="110">
+        <animate attributeName="cx" values="200;240;180;200" dur="55s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="120;100;140;120" dur="55s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse class="neb-b" cx="610" cy="280" rx="220" ry="130">
+        <animate attributeName="cx" values="610;570;640;610" dur="65s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="280;310;260;280" dur="65s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse class="neb-c" cx="430" cy="180" rx="180" ry="100">
+        <animate attributeName="cx" values="430;460;410;430" dur="72s" repeatCount="indefinite"/>
+        <animate attributeName="cy" values="180;160;200;180" dur="72s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+
+    <!-- Distant spiral galaxy (top-right) -->
+    <g transform="translate(720 60) rotate(20)" opacity="0.6" filter="url(#galaxyBlur)">
+      <ellipse rx="14" ry="6" fill="url(#galaxy)"/>
+      <ellipse rx="9"  ry="3.5" class="body" opacity="0.55"/>
+      <ellipse rx="4"  ry="1.6" class="body"/>
+      <path class="ring" d="M -12 -2 q 8 -3 14 1 q 6 4 4 9" stroke-width="0.4" stroke-dasharray="0.6 1.2" stroke-opacity="0.6"/>
+      <path class="ring" d="M 12 2 q -8 3 -14 -1 q -6 -4 -4 -9" stroke-width="0.4" stroke-dasharray="0.6 1.2" stroke-opacity="0.6"/>
+    </g>
+
+    <!-- Star field — full canvas, 70 stars -->
+    <g class="star">
+      <!-- bright -->
+      <circle class="tw-3" cx="78"  cy="64"  r="1.6"/>
+      <circle class="tw-1" cx="730" cy="92"  r="1.4"/>
+      <circle class="tw-3" cx="660" cy="320" r="1.5"/>
+      <circle class="tw-2" cx="120" cy="290" r="1.4"/>
+      <circle class="tw-3" cx="380" cy="350" r="1.5"/>
+      <!-- medium -->
+      <circle class="tw-2" cx="40"  cy="180" r="1.0" opacity="0.6"/>
+      <circle class="tw-4" cx="160" cy="40"  r="0.9" opacity="0.7"/>
+      <circle class="tw-1" cx="240" cy="180" r="1.1" opacity="0.55"/>
+      <circle class="tw-5" cx="280" cy="80"  r="0.9" opacity="0.6"/>
+      <circle class="tw-2" cx="320" cy="270" r="1.0" opacity="0.55"/>
+      <circle class="tw-3" cx="450" cy="140" r="0.9" opacity="0.5"/>
+      <circle class="tw-4" cx="540" cy="240" r="1.0" opacity="0.6"/>
+      <circle class="tw-1" cx="620" cy="60"  r="0.9" opacity="0.55"/>
+      <circle class="tw-5" cx="690" cy="200" r="1.0" opacity="0.6"/>
+      <circle class="tw-2" cx="760" cy="270" r="0.9" opacity="0.55"/>
+      <circle class="tw-4" cx="430" cy="310" r="0.9" opacity="0.55"/>
+      <circle class="tw-3" cx="180" cy="220" r="0.8" opacity="0.5"/>
+      <circle class="tw-4" cx="600" cy="370" r="0.95" opacity="0.55"/>
+      <circle class="tw-1" cx="280" cy="370" r="0.9" opacity="0.55"/>
+      <!-- small ambient -->
+      <circle cx="20"  cy="80"  r="0.5" opacity="0.45"/>
+      <circle cx="60"  cy="240" r="0.6" opacity="0.4"/>
+      <circle cx="100" cy="140" r="0.5" opacity="0.45"/>
+      <circle cx="200" cy="100" r="0.5" opacity="0.5"/>
+      <circle cx="220" cy="340" r="0.5" opacity="0.4"/>
+      <circle cx="280" cy="50"  r="0.5" opacity="0.45"/>
+      <circle cx="340" cy="220" r="0.5" opacity="0.4"/>
+      <circle cx="360" cy="120" r="0.5" opacity="0.45"/>
+      <circle cx="400" cy="60"  r="0.5" opacity="0.4"/>
+      <circle cx="460" cy="280" r="0.5" opacity="0.45"/>
+      <circle cx="490" cy="380" r="0.5" opacity="0.4"/>
+      <circle cx="510" cy="190" r="0.5" opacity="0.4"/>
+      <circle cx="560" cy="100" r="0.5" opacity="0.45"/>
+      <circle cx="580" cy="350" r="0.5" opacity="0.4"/>
+      <circle cx="610" cy="160" r="0.5" opacity="0.4"/>
+      <circle cx="640" cy="240" r="0.5" opacity="0.45"/>
+      <circle cx="670" cy="40"  r="0.5" opacity="0.4"/>
+      <circle cx="700" cy="350" r="0.5" opacity="0.45"/>
+      <circle cx="740" cy="180" r="0.5" opacity="0.4"/>
+      <circle cx="770" cy="100" r="0.5" opacity="0.45"/>
+      <circle cx="780" cy="340" r="0.5" opacity="0.4"/>
+      <circle cx="50"  cy="360" r="0.5" opacity="0.4"/>
+      <circle cx="140" cy="100" r="0.5" opacity="0.45"/>
+      <circle cx="380" cy="180" r="0.5" opacity="0.4"/>
+      <circle cx="420" cy="80"  r="0.5" opacity="0.4"/>
+      <circle cx="540" cy="320" r="0.5" opacity="0.4"/>
+      <circle cx="90"  cy="30"  r="0.5" opacity="0.4"/>
+      <circle cx="250" cy="220" r="0.5" opacity="0.4"/>
+      <circle cx="300" cy="160" r="0.5" opacity="0.45"/>
+      <circle cx="350" cy="50"  r="0.5" opacity="0.4"/>
+      <circle cx="470" cy="190" r="0.5" opacity="0.45"/>
+      <circle cx="520" cy="120" r="0.5" opacity="0.4"/>
+      <circle cx="580" cy="60"  r="0.5" opacity="0.4"/>
+      <circle cx="650" cy="100" r="0.5" opacity="0.4"/>
+      <circle cx="720" cy="130" r="0.5" opacity="0.45"/>
+      <circle cx="790" cy="200" r="0.5" opacity="0.4"/>
+      <!-- bottom strip -->
+      <circle cx="90"  cy="320" r="0.5" opacity="0.45"/>
+      <circle cx="180" cy="360" r="0.55" opacity="0.45"/>
+      <circle cx="230" cy="385" r="0.5" opacity="0.4"/>
+      <circle cx="320" cy="320" r="0.5" opacity="0.45"/>
+      <circle cx="350" cy="300" r="0.5" opacity="0.4"/>
+      <circle cx="410" cy="370" r="0.5" opacity="0.45"/>
+      <circle cx="450" cy="340" r="0.5" opacity="0.4"/>
+      <circle cx="500" cy="310" r="0.55" opacity="0.45"/>
+      <circle cx="560" cy="380" r="0.5" opacity="0.4"/>
+      <circle cx="630" cy="300" r="0.5" opacity="0.45"/>
+      <circle cx="680" cy="370" r="0.5" opacity="0.4"/>
+      <circle cx="750" cy="320" r="0.5" opacity="0.45"/>
+      <circle cx="790" cy="380" r="0.5" opacity="0.4"/>
+      <circle cx="20"  cy="320" r="0.5" opacity="0.45"/>
+    </g>
+
+    <!-- Cross-glints on 4 of the brightest stars -->
+    <g class="glint" stroke="currentColor" stroke-linecap="round">
+      <g class="glint-pulse" transform="translate(78 64)">
+        <line x1="-9" y1="0" x2="9" y2="0" stroke-width="0.6" opacity="0.78"/>
+        <line x1="0" y1="-9" x2="0" y2="9" stroke-width="0.6" opacity="0.78"/>
+      </g>
+      <g class="glint-pulse gp-2" transform="translate(730 92)">
+        <line x1="-7" y1="0" x2="7" y2="0" stroke-width="0.5" opacity="0.72"/>
+        <line x1="0" y1="-7" x2="0" y2="7" stroke-width="0.5" opacity="0.72"/>
+      </g>
+      <g class="glint-pulse gp-3" transform="translate(660 320)">
+        <line x1="-8" y1="0" x2="8" y2="0" stroke-width="0.5" opacity="0.72"/>
+        <line x1="0" y1="-8" x2="0" y2="8" stroke-width="0.5" opacity="0.72"/>
+      </g>
+      <g class="glint-pulse gp-4" transform="translate(380 350)">
+        <line x1="-9" y1="0" x2="9" y2="0" stroke-width="0.5" opacity="0.72"/>
+        <line x1="0" y1="-9" x2="0" y2="9" stroke-width="0.5" opacity="0.72"/>
+      </g>
+    </g>
+
+    <!-- SUPERNOVA at (500, 50) — 60s cycle -->
+    <g transform="translate(500 50)">
+      <circle class="nova-shock" cx="0" cy="0" r="0" opacity="0"/>
+      <circle class="nova-shock-2" cx="0" cy="0" r="0" opacity="0"/>
+      <circle class="nova-glow" cx="0" cy="0" r="0" opacity="0"/>
+      <circle class="nova-star" cx="0" cy="0" r="1.3" fill="currentColor" opacity="0.5"/>
+    </g>
+
+    <!-- Pulsar at (150, 340) -->
+    <g transform="translate(150 340)">
+      <circle class="pulsar-1" cx="0" cy="0" r="0" stroke="currentColor" stroke-width="0.6" fill="none" opacity="0"/>
+      <circle class="pulsar-2" cx="0" cy="0" r="0" stroke="currentColor" stroke-width="0.4" fill="none" opacity="0"/>
+      <circle class="body" r="2"/>
+    </g>
+
+    <!-- Constellation lines — 3 patterns cycling on 30s -->
+    <g class="ring" stroke-width="0.4">
+      <polyline class="con-1" points="78,64 160,40 200,100 280,80 340,220" />
+      <polyline class="con-2" points="730,92 690,200 660,320 580,350 540,240" />
+      <polyline class="con-3" points="120,290 220,340 380,350 430,310 540,320 660,320 600,370" />
+    </g>
+
+    <!-- Three staggered shooting stars -->
+    <g class="shoot-a">
+      <line x1="0" y1="0" x2="55" y2="0" stroke="url(#shootA)" stroke-width="1.4" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="translate" values="-100 50; 900 320" dur="18s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="20 0 0" dur="18s" repeatCount="indefinite" additive="sum"/>
+      </line>
+    </g>
+    <g class="shoot-b">
+      <line x1="0" y1="0" x2="42" y2="0" stroke="url(#shootB)" stroke-width="1.1" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="translate" values="900 80; -120 360" dur="22s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="160 0 0" dur="22s" repeatCount="indefinite" additive="sum"/>
+      </line>
+    </g>
+    <g class="shoot-c">
+      <line x1="0" y1="0" x2="32" y2="0" stroke="url(#shootB)" stroke-width="0.9" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="translate" values="-80 280; 880 30" dur="26s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="rotate" values="-18 0 0" dur="26s" repeatCount="indefinite" additive="sum"/>
+      </line>
+    </g>
+
+    <!-- Slow rays from core (centered on orbital system at 400, 200) -->
+    <g class="rays-group">
+      <g class="rays-pulse" transform="translate(400 200)" stroke="currentColor" stroke-linecap="round">
+        <line x1="0" y1="0" x2="280" y2="0"   stroke-width="0.4" opacity="0.6"/>
+        <line x1="0" y1="0" x2="0"   y2="280" stroke-width="0.4" opacity="0.6"/>
+        <line x1="0" y1="0" x2="-280" y2="0"  stroke-width="0.4" opacity="0.6"/>
+        <line x1="0" y1="0" x2="0"   y2="-280" stroke-width="0.4" opacity="0.6"/>
+        <line x1="0" y1="0" x2="200" y2="200"  stroke-width="0.3" opacity="0.5"/>
+        <line x1="0" y1="0" x2="-200" y2="200" stroke-width="0.3" opacity="0.5"/>
+        <line x1="0" y1="0" x2="200" y2="-200" stroke-width="0.3" opacity="0.5"/>
+        <line x1="0" y1="0" x2="-200" y2="-200" stroke-width="0.3" opacity="0.5"/>
+      </g>
+    </g>
+
+    <!-- ORBITAL SYSTEM TILTED, center (400, 200) -->
+    <g transform="translate(400 200)">
+
+      <!-- Ring 5 — far outer hint -->
+      <ellipse class="ring" rx="285" ry="128" stroke-width="0.4" stroke-dasharray="0.5 14" stroke-opacity="0.18">
+        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="180s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <!-- Ring 4 — outer with two moons -->
+      <g opacity="0.35">
+        <ellipse class="ring" rx="220" ry="99" stroke-width="0.5" stroke-dasharray="0.8 12" stroke-opacity="0.55">
+          <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="140s" repeatCount="indefinite"/>
+        </ellipse>
+        <circle class="body" r="1.2"><animateMotion dur="140s" repeatCount="indefinite" rotate="0" path="M 220 0 A 220 99 0 1 1 -220 0 A 220 99 0 1 1 220 0"/></circle>
+        <circle class="body" r="0.9" opacity="0.65"><animateMotion dur="140s" repeatCount="indefinite" rotate="0" begin="-50s" path="M 220 0 A 220 99 0 1 1 -220 0 A 220 99 0 1 1 220 0"/></circle>
+      </g>
+
+      <!-- Asteroid belt (between rings 4 and 3) -->
+      <g opacity="0.58">
+        <g>
+          <circle class="body" cx="195"   cy="0"     r="0.5"/>
+          <circle class="body" cx="191.3" cy="17.2"  r="0.6"/>
+          <circle class="body" cx="180.2" cy="33.7"  r="0.45"/>
+          <circle class="body" cx="162.1" cy="48.9"  r="0.55"/>
+          <circle class="body" cx="137.9" cy="62.2"  r="0.5"/>
+          <circle class="body" cx="108.4" cy="73.2"  r="0.6"/>
+          <circle class="body" cx="74.6"  cy="81.3"  r="0.5"/>
+          <circle class="body" cx="38.0"  cy="86.3"  r="0.55"/>
+          <circle class="body" cx="0"     cy="88"    r="0.45"/>
+          <circle class="body" cx="-38.0" cy="86.3"  r="0.5"/>
+          <circle class="body" cx="-74.6" cy="81.3"  r="0.6"/>
+          <circle class="body" cx="-108.4" cy="73.2" r="0.45"/>
+          <circle class="body" cx="-137.9" cy="62.2" r="0.55"/>
+          <circle class="body" cx="-162.1" cy="48.9" r="0.5"/>
+          <circle class="body" cx="-180.2" cy="33.7" r="0.55"/>
+          <circle class="body" cx="-191.3" cy="17.2" r="0.45"/>
+          <circle class="body" cx="-195"   cy="0"    r="0.6"/>
+          <circle class="body" cx="-191.3" cy="-17.2" r="0.5"/>
+          <circle class="body" cx="-180.2" cy="-33.7" r="0.55"/>
+          <circle class="body" cx="-162.1" cy="-48.9" r="0.45"/>
+          <circle class="body" cx="-137.9" cy="-62.2" r="0.55"/>
+          <circle class="body" cx="-108.4" cy="-73.2" r="0.5"/>
+          <circle class="body" cx="-74.6"  cy="-81.3" r="0.6"/>
+          <circle class="body" cx="-38.0"  cy="-86.3" r="0.45"/>
+          <circle class="body" cx="0"      cy="-88"   r="0.55"/>
+          <circle class="body" cx="38.0"   cy="-86.3" r="0.5"/>
+          <circle class="body" cx="74.6"   cy="-81.3" r="0.55"/>
+          <circle class="body" cx="108.4"  cy="-73.2" r="0.45"/>
+          <circle class="body" cx="137.9"  cy="-62.2" r="0.6"/>
+          <circle class="body" cx="162.1"  cy="-48.9" r="0.5"/>
+          <circle class="body" cx="180.2"  cy="-33.7" r="0.55"/>
+          <circle class="body" cx="191.3"  cy="-17.2" r="0.45"/>
+          <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="240s" repeatCount="indefinite"/>
+        </g>
+      </g>
+
+      <!-- Ring 3 — mid -->
+      <g opacity="0.46">
+        <ellipse class="ring" rx="160" ry="72" stroke-width="0.6" stroke-dasharray="1 10" stroke-opacity="0.6">
+          <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="100s" repeatCount="indefinite"/>
+        </ellipse>
+        <circle class="body" r="1.6"><animateMotion dur="100s" repeatCount="indefinite" rotate="0" path="M 160 0 A 160 72 0 1 1 -160 0 A 160 72 0 1 1 160 0"/></circle>
+      </g>
+
+      <!-- Ring 2 — Saturn ring -->
+      <g opacity="0.6">
+        <ellipse class="ring" rx="115" ry="52" stroke-width="0.7" stroke-dasharray="2 8" stroke-opacity="0.75">
+          <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="68s" repeatCount="indefinite"/>
+        </ellipse>
+        <g>
+          <g transform="rotate(15)">
+            <path class="ring" d="M -13 0 A 13 5 0 0 1 13 0" stroke-width="0.7" stroke-opacity="0.85"/>
+            <path class="ring" d="M -13 0 A 13 5 0 0 1 13 0" stroke-width="0.5" stroke-opacity="0.5" stroke-dasharray="1.5 1.5"/>
+            <circle class="body" r="6.2"/>
+            <path class="saturn-shadow" d="M 0 -6.2 A 6.2 6.2 0 0 1 0 6.2 Z"/>
+            <path class="ring" d="M -13 0 A 13 5 0 0 0 13 0" stroke-width="0.85" stroke-opacity="0.95"/>
+          </g>
+          <animateMotion dur="68s" repeatCount="indefinite" rotate="0" path="M 115 0 A 115 52 0 1 1 -115 0 A 115 52 0 1 1 115 0"/>
+        </g>
+        <circle class="body" r="1.3" opacity="0.7"><animateMotion dur="68s" repeatCount="indefinite" rotate="0" begin="-22s" path="M 115 0 A 115 52 0 1 1 -115 0 A 115 52 0 1 1 115 0"/></circle>
+      </g>
+
+      <!-- Ring 1 — innermost -->
+      <g opacity="0.75">
+        <ellipse class="ring" rx="76" ry="34" stroke-width="0.8" stroke-dasharray="2.5 5" stroke-opacity="0.88">
+          <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="42s" repeatCount="indefinite"/>
+        </ellipse>
+        <circle class="body" r="2.4"><animateMotion dur="42s" repeatCount="indefinite" rotate="0" path="M 76 0 A 76 34 0 1 1 -76 0 A 76 34 0 1 1 76 0"/></circle>
+      </g>
+
+      <!-- BLACK HOLE JETS — twin polar columns, 80s cycle -->
+      <g class="jets-group">
+        <ellipse class="jet-shock" cx="0" cy="0" rx="0" ry="0" opacity="0"
+          style="transform: scale(1, 0.45); transform-origin: 0 0;"/>
+        <circle class="jet-ignite" cx="0" cy="0" r="0" opacity="0"/>
+        <path class="jet-top" d="M -2.5 0 L 2.5 0 L 0.5 -200 L -0.5 -200 Z"/>
+        <path class="jet-bot" d="M -2.5 0 L 2.5 0 L 0.5 200 L -0.5 200 Z"/>
+      </g>
+
+      <!-- Multi-layer breathing core -->
+      <circle class="core-outer" cx="0" cy="0" r="42" fill="url(#core)"/>
+      <circle class="core-inner" cx="0" cy="0" r="14" fill="url(#coreInner)"/>
+      <circle cx="0" cy="0" r="2" class="body"/>
+    </g>
+
+    <!-- Film grain overlay — last element so it sits on top of everything -->
+    <rect class="grain-overlay" width="800" height="400" pointer-events="none"/>
+  </g>
+</svg>
