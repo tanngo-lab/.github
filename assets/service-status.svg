@@ -61,7 +61,7 @@
   <text class="meta-value" x="14" y="72">65%</text>
   <rect class="track" x="14" y="76" width="220" height="4" rx="2"/>
   <rect class="cpu" x="14" y="76" width="143" height="4" rx="2">
-    <animate attributeName="width" values="121;172;92;121" dur="3.2s" repeatCount="indefinite"/>
+    <animate attributeName="width" values="121;172;121" dur="3.2s" repeatCount="indefinite"/>
   </rect>
 
   <!-- Meta row: MEM column -->
